@@ -1,0 +1,50 @@
+/* agent-statusbar mod — маленький фоновый индикатор в правом нижнем углу.
+ * pointer-events: none — бейдж никогда не перехватывает клики и не мешает контенту. */
+#agent-statusbar {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  line-height: 1;
+  font-family: ui-monospace, Consolas, monospace;
+  color: #cfd6e4;
+  background: rgba(16, 19, 27, .85);
+  border: 1px solid rgba(120, 132, 155, .35);
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+
+#agent-statusbar .agent-statusbar-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8a93a6; /* по умолчанию серый */
+}
+
+/* active -> зелёная */
+#agent-statusbar.ok .agent-statusbar-dot {
+  background: #3ecf8e;
+  box-shadow: 0 0 6px rgba(62, 207, 142, .6);
+}
+
+/* unavailable -> серая */
+#agent-statusbar.off .agent-statusbar-dot {
+  background: #8a93a6;
+}
+
+/* failed / inactive / прочее -> красная */
+#agent-statusbar.err .agent-statusbar-dot {
+  background: #ff6b6b;
+  box-shadow: 0 0 6px rgba(255, 107, 107, .6);
+}
+
+#agent-statusbar .agent-statusbar-text {
+  opacity: .9;
+}

@@ -1,0 +1,20 @@
+# agent-loop.service — агент-луп (тот же CT, что Forgejo)
+[Unit]
+Description=Agent loop: Forgejo tasks harness
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/agent-loop
+# секреты — из EnvironmentFile (не коммитить)
+EnvironmentFile=/opt/agent-loop/env
+ExecStart=/opt/agent-loop/venv/bin/python -m agent --config /opt/agent-loop/config.yaml
+Restart=always
+RestartSec=10
+# мягкие лимиты (локальный LLM не нужен — он на 110.3/110.4)
+MemoryMax=1G
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

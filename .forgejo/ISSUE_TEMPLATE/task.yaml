@@ -1,0 +1,32 @@
+name: Задача
+about: Новая задача с обязательным чек-листом «Критерии готовности»
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Агент ставит метку `done` только после построчной сверки каждого пункта чек-листа ниже и перечисляет доказательства по пунктам в финальном отчёте.
+  - type: textarea
+    id: description
+    attributes:
+      label: Описание
+      description: Цель и объём работ
+      placeholder: Что нужно сделать
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Критерии готовности (чек-лист)
+      description: Один проверяемый пункт на строку, формат `- [ ] пункт`
+      placeholder: |
+        - [ ] первый проверяемый критерий
+        - [ ] второй проверяемый критерий
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmed
+    attributes:
+      label: Подтверждение
+      options:
+        - label: Критерии готовности заполнены, каждый пункт проверяем
+          required: true

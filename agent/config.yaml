@@ -1,0 +1,82 @@
+# Конфиг агент-лупа. Секреты (токены, ключи) — через env: $FORGEJO_TOKEN, $HONCHO_API_KEY, api_key в models.
+
+forgejo:
+  url: http://192.168.110.9:8080
+  user: hermes
+  token: ${FORGEJO_TOKEN}
+  owner: morlik
+  repo: Forgejo-agents-tasks
+  # служебный репо туду-задач («Задачи» в UI): сюда падают задачи без выбора репозитория
+  tasks_repo: morlik/inbox
+  # какие inbox-репо опрашивает агент-луп (по одному на пользователя)
+  tasks_repos: [morlik/inbox, hermes/inbox]
+  # имя inbox-репо: задача создаётся в <логин>/<tasks_inbox_name>
+  tasks_inbox_name: inbox
+  # кому назначаются задачи, созданные агентом через API (пусто = никто)
+  tasks_assignees: [morlik]
+  poll_interval: 15        # сек
+  trigger_labels: [agent]  # issue подхватывается, если есть этот label или снят чекбокс «Агент»
+  checkbox: "Агент"        # текст чекбокса в шаблоне issue
+
+models:
+  default: qwen-27b
+  providers:
+    qwen-27b:
+      base_url: http://192.168.110.3:8080/v1
+      model: "Qwen 3.8 27B KV4 C500"
+      api_key: ${LLAMA_API_KEY}
+      max_tokens: 4096
+      temperature: 0.3
+      timeout: 600         # локальная модель медленная — не убивать рано
+    # KV8 C262 — второй пресет на 110.3 (models-max=1: доступен, когда поднят именно он)
+    qwen-27b-c262:
+      base_url: http://192.168.110.3:8080/v1
+      model: "Qwen 3.8 27B KV8 C262"
+      api_key: ${LLAMA_API_KEY}
+      max_tokens: 4096
+      temperature: 0.3
+      timeout: 600
+    # qwen-p40 (110.4): сейчас там только embedding-модель — вернуть, когда поднимут chat
+    # qwen-p40:
+    #   base_url: http://192.168.110.4:8080/v1
+    #   model: <id из /v1/models>
+    #   api_key: ${LLAMA_P40_API_KEY}
+    openai:
+      base_url: https://api.openai.com/v1
+      model: gpt-4o-mini
+      api_key: ${OPENAI_API_KEY}
+      max_tokens: 8192
+      timeout: 120
+
+honcho:
+  base_url: http://192.168.110.5:8000
+  api_key: ${HONCHO_API_KEY}
+  workspace: hermes
+  peer: morli-k
+  ai_peer: hermes
+  context_chars: 6000      # сколько символов контекста подмешивать в промпт
+
+skills:
+  dir: /opt/agent-loop/skills   # каталог скиллов (статические, ведёт владелец)
+  max_in_prompt: 3             # сколько SKILL.md подмешивать в промпт
+
+agent:
+  workdir: /opt/agent-loop/work
+  max_iterations: 25         # лимит LLM-итераций на задачу
+  report_label: done         # label по завершении (review — если остались вопросы)
+  question_label: review
+  log: /var/log/agent-loop/agent.log
+
+ssh_hosts:                   # хосты для инструмента ssh_exec
+  pve: 192.168.110.2
+  llama: 192.168.110.3
+  p40: 192.168.110.4
+  honcho: 192.168.110.5
+  gameap: 192.168.110.6
+  searxng: 192.168.110.7
+
+bridge:                      # мост agent-loop -> Hermes (110.4)
+  run_timeout: 3600
+  parked_retry_s: 1800
+  main_chat_idle_gate_s: 180
+  watchdog_idle_s: 600       # #28: тишина work-сессии живого прогона выше порога -> наблюдатель убивает прогон (ran=False без fails++)

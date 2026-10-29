@@ -1,0 +1,21 @@
+.at-new{display:inline-block;margin:6px 0;padding:5px 12px;font-size:14px;border-radius:5px}
+.at-form,.at-edit{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:6px 0 12px;padding:8px 10px;border:1px dashed var(--color-border);border-radius:6px;background:var(--color-bg)}
+.at-apply{padding:3px 10px;font-size:13px}
+.at-edit-msg{font-size:12px;color:var(--color-text-light-2)}
+.at-ctl{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--color-text-light-2)}
+.at-row{display:flex;align-items:center;gap:10px}
+.at-ctl select,.at-ctl input[type=date]{box-sizing:border-box!important;height:24px;padding:1px 6px!important;font-size:14px!important;font-weight:400!important;text-transform:none!important;line-height:20px;border:1px solid var(--color-border);border-radius:5px;background:var(--color-input-bg,var(--color-bg));color:var(--color-text)}
+.at-ctl select{width:64px!important;height:24px!important}
+.at-ctl input[type=date]{width:112px!important}
+.at-ctl input[type=checkbox]{width:16px;height:16px;vertical-align:middle;accent-color:var(--color-primary)}
+.at-cfmt-row{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:14px;color:var(--color-text-light-2);padding:2px 8px 0 0;margin:10px 0}
+.at-cfmt-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--color-primary)}
+.at-cfmt-row .at-cfmt-btn{padding:1px 10px!important;font-size:13px!important;line-height:1.4;border-radius:4px}
+
+/* размер как у «New issue» (36px) — Forgejo .ui.icon.button перебиваем !important */
+.at-pauseall,.at-taskpause{border-radius:4px!important;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.at-pauseall{margin-left:6px;height:36px!important;min-width:36px;padding:0 9px!important}
+.at-taskpause{height:26px!important;min-width:26px;padding:0 6px!important}
+.at-pauseall svg{width:18px;height:18px;display:block}
+.at-taskpause svg{width:14px;height:14px;display:block}
+.at-pauseall.at-paused,.at-taskpause.at-paused{color:var(--color-red,#d03f3f);border-color:var(--color-red,#d03f3f);background:rgba(208,63,63,.10)}

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.env
+env
+*.log
+poller_state.json
+work/
+venv/
+# состояние deploy-а модов (живёт только на CT)
+mods/*/.deploy.json
+# тестовые артефакты
+test_*.json
+test_*.log
+agent/config.yaml.overlay.yaml

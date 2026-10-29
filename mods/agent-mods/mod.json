@@ -1,0 +1,7 @@
+{
+  "name": "agent-mods",
+  "title": "Мод-менеджер",
+  "core": true,
+  "enabled": true,
+  "description": "Пункт «Моды» в настройках Forgejo + менеджер модов (deploy/undeploy, вкл/выкл). Core: выключить нельзя — это сам менеджер."
+}

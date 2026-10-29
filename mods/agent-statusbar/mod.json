@@ -1,0 +1,16 @@
+{
+  "name": "agent-statusbar",
+  "title": "Статусбар агента",
+  "enabled": false,
+  "pages": [
+    "^/"
+  ],
+  "assets": {
+    "js": [
+      "main.js"
+    ],
+    "css": [
+      "main.css"
+    ]
+  }
+}

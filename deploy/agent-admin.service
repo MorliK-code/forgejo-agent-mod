@@ -1,0 +1,20 @@
+# agent-admin.service — панель управления агент-лупом (HTTP :8091)
+[Unit]
+Description=Agent loop admin panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/agent-loop/repo
+Environment=PYTHONPATH=/opt/agent-loop/repo
+Environment=HOME=/root
+# секреты (FORGEJO_TOKEN, ...) — из env-файла; auth панели = сессия Forgejo
+EnvironmentFile=/opt/agent-loop/env
+ExecStart=/opt/agent-loop/venv/bin/python -m agent.admin_server
+Restart=always
+RestartSec=5
+MemoryMax=300M
+
+[Install]
+WantedBy=multi-user.target
